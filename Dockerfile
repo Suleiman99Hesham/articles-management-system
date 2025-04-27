@@ -1,21 +1,24 @@
 # Use official Python image
 FROM python:3.11-slim
 
-# Set working directory
+# Set working directory inside container
 WORKDIR /app
 
-# Copy project files
+# Copy full project files into container
 COPY . /app/
 
-# Install dependencies
+# Move into correct Django app folder
+WORKDIR /app/app
+
+# Install Python dependencies
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install -r /app/requirements.txt
 
 # Collect static files
 RUN python manage.py collectstatic --noinput
 
-# Expose port
+# Expose port 8000
 EXPOSE 8000
 
-# Run server
-CMD ["gunicorn", "yourprojectname.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Run the server (using gunicorn)
+CMD ["gunicorn", "app.wsgi:application", "--bind", "0.0.0.0:8000"]
