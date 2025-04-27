@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# Django
+**/migrations/
+staticfiles/
+media/
+.env
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# VS Code / PyCharm
+.vscode/
+.idea/
