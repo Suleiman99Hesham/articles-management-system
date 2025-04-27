@@ -84,6 +84,9 @@ DATABASES = {
         'PASSWORD': 'ArticlesDBPass',
         'HOST': 'db.prxtgorspscoilayicig.supabase.co',  # Important: matches docker-compose service name
         'PORT': 5432,
+        'OPTIONS': {
+            'sslmode': 'require'
+        }
     }
 }
 
