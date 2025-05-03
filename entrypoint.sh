@@ -3,11 +3,11 @@
 set -e  # Exit immediately if a command exits with a non-zero status
 
 # Wait for DB to be ready
-echo "Waiting for postgres..."
-until nc -z "$DATABASE_HOST" "$DATABASE_PORT"; do
-  sleep 1
-done
-echo "PostgreSQL started"
+# echo "Waiting for postgres..."
+# until nc -z "$DATABASE_HOST" "$DATABASE_PORT"; do
+#   sleep 1
+# done
+# echo "PostgreSQL started"
 
 echo "Running migrations..."
 python manage.py migrate --noinput
@@ -33,10 +33,10 @@ EOF
 echo "Collecting static files..."
 python manage.py collectstatic --noinput
 
-if [ "$DEBUG" = "True" ]; then
-  echo "Starting Django development server..."
-  exec python manage.py runserver 0.0.0.0:8000
-else
-  echo "Starting Gunicorn production server..."
-  exec gunicorn app.wsgi:application --bind 0.0.0.0:8000
-fi
+# if [ "$DEBUG" = "True" ]; then
+#   echo "Starting Django development server..."
+#   exec python manage.py runserver 0.0.0.0:8000
+# else
+echo "Starting Gunicorn production server..."
+exec gunicorn app.wsgi:application --bind 0.0.0.0:8000
+# fi
