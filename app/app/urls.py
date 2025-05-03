@@ -16,16 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponseRedirect
 from rest_framework.routers import DefaultRouter
 from articles.views import ArticleViewSet, search_page
 
+
 router = DefaultRouter()
-router.register(r'api/articles', ArticleViewSet, basename='article')
+router.register(r'articles', ArticleViewSet, basename='article')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('search/', search_page, name='search_page'),
-    path('', include(router.urls)),
+    path('api/', include(router.urls)),
+    path('', lambda request: HttpResponseRedirect('/search/')),  # Redirect root to /search/
 ]
 
 
